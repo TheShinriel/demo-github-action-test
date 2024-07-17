@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "jest",
+    "preinstall": "node preinstall.js"
+  },
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
+}

@@ -1,0 +1,29 @@
+name: Exécution des tests
+
+# L'action s'activera à chaque push sur le repository
+on: [push]
+
+jobs:
+  test-job:
+    # On tourne sur une machine ubuntu
+    runs-on: ubuntu-latest
+
+    # On donne un nom à notre job
+    name: Execute tests
+
+    steps:
+      - name: 🛑 Annule les précédents workflows
+        uses: styfle/cancel-workflow-action@0.9.1
+      - name: ⬇️ Récupère le repository
+        uses: actions/checkout@v4
+      - name: 🛠 Installe la bonne version de node
+        # On install node v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: 📱 Installe les dépendances
+        # npm ci, prends les dépendances du package-lock.json et non du package.json
+        # Ainsi on se base sur les dernières dépendances installées en local
+        run: npm ci
+      - name: ✅ Executer tests
+        run: npm test
